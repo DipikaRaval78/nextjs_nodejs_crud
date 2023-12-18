@@ -59,23 +59,23 @@ try {
 }
 app.use("/api", routes);
 
-if(process.env.NODE_ENV === 'production') {
+// if(process.env.NODE_ENV === 'production') {
 
-  // nextApp.prepare().then(() => {
-    // Serve static files from the .next folder
-  app.use(express.static(path.join(__dirname, '.next')));
+//   // nextApp.prepare().then(() => {
+//     // Serve static files from the .next folder
+//   app.use(express.static(path.join(__dirname, '.next')));
 
-  // Handle all other requests with Next.js
-  app.all('*', (req, res) => {
-    return handle(req, res);
-  });
+//   // Handle all other requests with Next.js
+//   app.all('*', (req, res) => {
+//     return handle(req, res);
+//   });
   
-  // })
-  // app.get('/',(req,res) =>{
-  //   app.use(express.static(path.resolve(__dirname,'Frontend','build','index.html')))
-  //   res.sendFile(path.resolve(__dirname,'Frontend','build','index.html'))
-  // })
-}
+//   // })
+//   // app.get('/',(req,res) =>{
+//   //   app.use(express.static(path.resolve(__dirname,'Frontend','build','index.html')))
+//   //   res.sendFile(path.resolve(__dirname,'Frontend','build','index.html'))
+//   // })
+// }
 
 app.listen(PORT, () => {
   console.log(`Running at ${PORT}`);
