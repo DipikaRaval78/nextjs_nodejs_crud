@@ -2,12 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const { mongoose } = require("mongoose");
 const jwt = require("jsonwebtoken");
+const {MONGODB_URI} = require('./config/keys')
+
 const cookieParser = require("cookie-parser");
 
 const bodyParser = require("body-parser");
-
+// const next = require('next');
 const routes = require("./routes/authRoutes");
 const path = require("path");
+// const nextApp = next({ dev });
+// const handle = nextApp.getRequestHandler();
 
 require("dotenv").config();
 
@@ -24,6 +28,8 @@ app.use(
   "/public/ProductImages",
   express.static(path.join(__dirname, "public/ProductImages"))
 );
+
+
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
@@ -46,12 +52,30 @@ app.get("/set-cookie", (req, res) => {
 //         console.error(error);
 //     });
 try {
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(MONGODB_URI);
   console.log("MongoDB_Connected....");
 } catch (error) {
   console.log(error);
 }
 app.use("/api", routes);
+
+if(process.env.NODE_ENV === 'production') {
+
+  // nextApp.prepare().then(() => {
+    // Serve static files from the .next folder
+  app.use(express.static(path.join(__dirname, '.next')));
+
+  // Handle all other requests with Next.js
+  app.all('*', (req, res) => {
+    return handle(req, res);
+  });
+  
+  // })
+  // app.get('/',(req,res) =>{
+  //   app.use(express.static(path.resolve(__dirname,'Frontend','build','index.html')))
+  //   res.sendFile(path.resolve(__dirname,'Frontend','build','index.html'))
+  // })
+}
 
 app.listen(PORT, () => {
   console.log(`Running at ${PORT}`);

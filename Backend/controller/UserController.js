@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { isEmail } = require("validator");
+const {JWT_LOGIN_TOKEN} = require('../config/keys')
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -14,7 +15,7 @@ const login = async (req, res) => {
     if (match) {
       const token = jwt.sign(
         { _id: dbUser._id, name: dbUser.name, email },
-        process.env.JWT_LOGIN_TOKEN,
+        JWT_LOGIN_TOKEN,
         { expiresIn: "1d" }
       );
 

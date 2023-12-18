@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const {JWT_LOGIN_TOKEN} = require('../config/keys')
+
 
 module.exports = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -6,7 +8,7 @@ module.exports = (req, res, next) => {
 console.log(req,"------------>Server--token")
   if (token) {
     try {
-      const decode = jwt.verify(token, process.env.JWT_LOGIN_TOKEN);
+      const decode = jwt.verify(token, JWT_LOGIN_TOKEN);
       console.log("Profile Verified", decode);
 
       // Store the decoded user data in the request object
