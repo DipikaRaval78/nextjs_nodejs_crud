@@ -26,8 +26,9 @@ const AddProduct: React.FC<ADDProductProps> = ({
   const [category, setCategory] = useState("");
   const [userId, setUserId] = useState("");
   const [company, setCompany] = useState("");
-  const [image, setImages] = useState([]);
+  // const [image, setImages] = useState([]);
   // const [image, setImages] = useState<File[]>([]);
+  const [image, setImages] = useState<File[]>([]);
   const router = useRouter();
 
   const handleAddProduct = async (e: React.FormEvent) => {
@@ -55,7 +56,17 @@ const AddProduct: React.FC<ADDProductProps> = ({
   };
 
   
+  // const [images, setImages] = useState<File[]>([]); // State to hold selected images
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (selectedFiles) {
+      const filesArray: File[] = Array.from(selectedFiles);
+      setImages(filesArray); // Set the state with the array of files
+    } else {
+      setImages([]); // Reset images to an empty array if no files are selected
+    }
+  };
   // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
   //   console.log(e.target.files,"-------------------ClientSide File")
@@ -192,8 +203,8 @@ const AddProduct: React.FC<ADDProductProps> = ({
             type="file"
             multiple
             required
-            // onChange={handleImageChange}
-            onChange={(e) => setImages(e.target.files)}
+            onChange={handleImageChange}
+            // onChange={(e) => setImages(e.target.files)}
             className="input input-bordered w-full my-5"
           />
 

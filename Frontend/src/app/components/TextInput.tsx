@@ -22,6 +22,11 @@ const TextInput: React.FC<ITextInput> = ({
   placeholder,
   onChange,
 }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
   return (
     <div className="w-full">
       {label ? <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</p> : null}
@@ -29,7 +34,7 @@ const TextInput: React.FC<ITextInput> = ({
         className="w-full h-11"
         value={value}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         type={type}
       />
     </div>

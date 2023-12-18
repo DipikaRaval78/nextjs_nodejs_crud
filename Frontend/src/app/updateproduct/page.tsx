@@ -1,3 +1,4 @@
+"use client"
 import  React from 'react';
 import UpdateProduct from '../components/UpdateProduct';
 const page = () =>{
@@ -5,9 +6,9 @@ const page = () =>{
         <div>  
             <UpdateProduct productToEdit={undefined} setModalOpen={function (value: React.SetStateAction<boolean>): void {
                 throw new Error('Function not implemented.');
-            } } getProducts={function (): void {
+            } } loadProducts={function (): void {
                 throw new Error('Function not implemented.');
-            } }/>
+            } } />
         </div>
     )
 }

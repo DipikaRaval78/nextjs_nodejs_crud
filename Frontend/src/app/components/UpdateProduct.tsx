@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+"use client"
+
+import React, { useState,useEffect } from 'react';
 import Modal from './Modal';
 import axiosInstance from '../interceptors/axios';
 import { useRouter } from 'next/navigation';
@@ -10,15 +12,35 @@ interface UpdateProductProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   loadProducts:()=> void;
 }
-const UpdateProduct :React.FC<UpdateProductProps> =  ({productToEdit, setModalOpen,loadProducts} ) => {
+const UpdateProduct :React.FC<UpdateProductProps> =  ({
+  productToEdit, 
+  setModalOpen,
+  loadProducts
+
+  } ) => {
 
  
-  const [name, setName] = useState(productToEdit.name);
-  const [price, setPrice] = useState(productToEdit.price);
-  const [category, setCategory] = useState(productToEdit.category);
-  const [userId, setUserId] = useState(productToEdit.userId);
-  const [company, setCompany] = useState(productToEdit.company);
+  // const [name, setName] = useState(productToEdit.name);
+  // const [price, setPrice] = useState(productToEdit.price);
+  // const [category, setCategory] = useState(productToEdit.category);
+  // const [userId, setUserId] = useState(productToEdit.userId);
+  // const [company, setCompany] = useState(productToEdit.company);
 
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [userId, setUserId] = useState('');
+  const [company, setCompany] = useState('');
+
+  useEffect(() => {
+    if (productToEdit) {
+      setName(productToEdit.name || '');
+      setPrice(productToEdit.price || '');
+      setCategory(productToEdit.category || '');
+      setUserId(productToEdit.userId || '');
+      setCompany(productToEdit.company || '');
+    }
+  }, [productToEdit]);
   const router = useRouter()
 
   const handleUpdate = async () => {
